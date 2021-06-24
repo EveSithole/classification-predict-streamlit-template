@@ -239,7 +239,6 @@ def main():
             all_ml_models = ["LR","NB","RFOREST","DECISION_TREE"]
             model_choice = st.selectbox("Choose ML Model",all_ml_models)
 
-            st.info('for more information on the above ML Models please visit: https://datakeen.co/en/8-machine-learning-algorithms-explained-in-human-language/')
 
             prediction_labels = {'Negative':-1,'Neutral':0,'Positive':1,'News':2}
             if st.button('Classify'):
@@ -252,15 +251,15 @@ def main():
                     prediction = predictor.predict(vect_text)
                     # st.write(prediction)
                 elif model_choice == 'RFOREST':
-                    predictor = load_prediction_models("resources/RFOREST_model.pkl")
+                    predictor = load_prediction_models("resources/Random_model.pkl")
                     prediction = predictor.predict(vect_text)
                     # st.write(prediction)
-                elif model_choice == 'NB':
-                    predictor = load_prediction_models("resources/NB_model.pkl")
-                    prediction = predictor.predict(vect_text)
+                # elif model_choice == 'NB':
+                #     predictor = load_prediction_models("resources/NB_model.pkl")
+                #     prediction = predictor.predict(vect_text)
                     # st.write(prediction)
                 elif model_choice == 'DECISION_TREE':
-                    predictor = load_prediction_models("resources/DTrees_model.pkl")
+                    predictor = load_prediction_models("Dec_tree_model.pkl")
                     prediction = predictor.predict(vect_text)
 				# st.write(prediction)
 
@@ -331,7 +330,8 @@ def main():
                 text_input['sentiment'] = prediction
                 final_result = get_keys(prediction,prediction_labels)
                 st.success("Tweets Categorized as:: {}".format(final_result))
-
+                
+                st.info('for more information on the above ML Models please visit: https://datakeen.co/en/8-machine-learning-algorithms-explained-in-human-language/')
                 
                 csv = text_input.to_csv(index=False)
                 b64 = base64.b64encode(csv.encode()).decode()  # some strings <-> bytes conversions necessary here
