@@ -238,10 +238,12 @@ def main():
             input_text = st.text_area('Enter Text (max. 140 characters):') ##user entering a single text to classify and predict
             all_ml_models = ["LR","NB","RFOREST","DECISION_TREE"]
             model_choice = st.selectbox("Choose ML Model",all_ml_models)
+            st.info('for more information on the above ML Models please visit: https://datakeen.co/en/8-machine-learning-algorithms-explained-in-human-language/')
 
 
             prediction_labels = {'Negative':-1,'Neutral':0,'Positive':1,'News':2}
             if st.button('Classify'):
+ 
 
                 st.text("Original test ::\n{}".format(input_text))
                 text1 = cleaner(input_text) ###passing the text through the 'cleaner' function
@@ -301,17 +303,18 @@ def main():
                 st.text("Original test ::\n{}".format(text_input))
                 X1 = text_input[col].apply(cleaner) ###passing the text through the 'cleaner' function
                 vect_text = tweet_cv.transform([X1]).toarray()
+                
                 if model_choice == 'LR':
                     predictor = load_prediction_models("resources/Logistic_regression.pkl")
                     prediction = predictor.predict(vect_text)
                     # st.write(prediction)
                 elif model_choice == 'RFOREST':
-                    predictor = load_prediction_models("resources/Random_model.pkl")
+                    predictor = load_prediction_models("resources/Dec_tree_model.pkl")
                     prediction = predictor.predict(vect_text)
                     # st.write(prediction)
-                elif model_choice == 'NB':
-                    predictor = load_prediction_models("resources/NB_model.pkl")
-                    prediction = predictor.predict(vect_text)
+                # elif model_choice == 'NB':
+                #     predictor = load_prediction_models("resources/NB_model.pkl")
+                #     prediction = predictor.predict(vect_text)
                     # st.write(prediction)
                 elif model_choice == 'SupportVectorMachine':
                     predictor = load_prediction_models("resources/svm_model.pkl")
@@ -330,8 +333,8 @@ def main():
                 text_input['sentiment'] = prediction
                 final_result = get_keys(prediction,prediction_labels)
                 st.success("Tweets Categorized as:: {}".format(final_result))
-                
-                st.info('for more information on the above ML Models please visit: https://datakeen.co/en/8-machine-learning-algorithms-explained-in-human-language/')
+
+      
                 
                 csv = text_input.to_csv(index=False)
                 b64 = base64.b64encode(csv.encode()).decode()  # some strings <-> bytes conversions necessary here
