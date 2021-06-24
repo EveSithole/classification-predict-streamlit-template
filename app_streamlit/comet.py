@@ -2,8 +2,9 @@
 from comet_ml import Experiment
 
 # Adding the following code to our machine learning file
-experiment = Experiment(api_key="9gsTl4Wv73PDkYEoX8PUt5RSX",
-                        project_name="NLP", workspace="ms-noxolo")
+experiment = Experiment(api_key="0F7HQ5cQHkSlhwVvlf3D7P20c",
+    project_name="classification-teammm1",
+    workspace="katlegolionel")
 
 # Run your code and go to https://www.comet.ml/
 
